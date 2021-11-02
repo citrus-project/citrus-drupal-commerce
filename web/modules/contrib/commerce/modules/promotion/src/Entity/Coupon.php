@@ -4,7 +4,6 @@ namespace Drupal\commerce_promotion\Entity;
 
 use Drupal\commerce\Entity\CommerceContentEntityBase;
 use Drupal\commerce_order\Entity\OrderInterface;
-use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -61,8 +60,6 @@ use Drupal\Core\Entity\EntityTypeInterface;
  */
 class Coupon extends CommerceContentEntityBase implements CouponInterface {
 
-  use EntityChangedTrait;
-
   /**
    * {@inheritdoc}
    */
@@ -98,21 +95,6 @@ class Coupon extends CommerceContentEntityBase implements CouponInterface {
    */
   public function setCode($code) {
     $this->set('code', $code);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCreatedTime() {
-    return $this->get('created')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setCreatedTime($timestamp) {
-    $this->set('created', $timestamp);
     return $this;
   }
 
@@ -266,15 +248,6 @@ class Coupon extends CommerceContentEntityBase implements CouponInterface {
         'weight' => -4,
       ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['created'] = BaseFieldDefinition::create('created')
-      ->setLabel(t('Created'))
-      ->setDescription(t('The time when the coupon was created.'));
-
-    $fields['changed'] = BaseFieldDefinition::create('changed')
-      ->setLabel(t('Changed'))
-      ->setDescription(t('The time when the coupon was last edited.'))
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['usage_limit'] = BaseFieldDefinition::create('integer')

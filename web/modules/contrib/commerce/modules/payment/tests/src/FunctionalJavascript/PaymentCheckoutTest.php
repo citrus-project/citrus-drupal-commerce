@@ -93,7 +93,7 @@ class PaymentCheckoutTest extends CommerceWebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp(): void {
+  protected function setUp() {
     parent::setUp();
 
     $this->store->set('billing_countries', ['FR', 'US']);

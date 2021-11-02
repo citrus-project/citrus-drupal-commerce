@@ -30,7 +30,7 @@ class CouponTest extends OrderKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp(): void {
+  protected function setUp() {
     parent::setUp();
 
     $this->installEntitySchema('commerce_promotion');
@@ -44,8 +44,6 @@ class CouponTest extends OrderKernelTestBase {
    * @covers ::getPromotionId
    * @covers ::getCode
    * @covers ::setCode
-   * @covers ::getCreatedTime
-   * @covers ::setCreatedTime
    * @covers ::getUsageLimit
    * @covers ::setUsageLimit
    * @covers ::getCustomerUsageLimit
@@ -70,9 +68,6 @@ class CouponTest extends OrderKernelTestBase {
 
     $coupon->setCode('test_code');
     $this->assertEquals('test_code', $coupon->getCode());
-
-    $coupon->setCreatedTime(635879700);
-    $this->assertEquals(635879700, $coupon->getCreatedTime());
 
     $coupon->setUsageLimit(10);
     $this->assertEquals(10, $coupon->getUsageLimit());
