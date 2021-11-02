@@ -112,25 +112,21 @@ class StateTransitionFormTest extends BrowserTestBase {
     $first_entity->save();
     $this->drupalGet($first_entity->toUrl('canonical'));
     $this->assertSession()->pageTextContains('First');
-    $buttons = $this->xpath('//form[@id="state-machine-transition-form-entity-test-with-bundle-field-state-1"]/div/a');
+    $buttons = $this->xpath('//form[@id="state-machine-transition-form-entity-test-with-bundle-field-state-1"]/div/input');
     $this->assertCount(2, $buttons);
-    $this->assertEquals('Create', $buttons[0]->getText());
-    $this->assertEquals('Cancel', $buttons[1]->getText());
-    $this->assertSession()->linkExists('Create');
+    $this->assertEquals('Create', $buttons[0]->getValue());
+    $this->assertEquals('Cancel', $buttons[1]->getValue());
+    $this->assertSession()->buttonExists('Create');
     // Click the Create button.
     $buttons[0]->click();
-    $this->assertSession()->pageTextContains('Are you sure you want to apply this transition?');
-    $this->assertSession()->pageTextContains('From: New');
-    $this->assertSession()->pageTextContains('To: Fulfillment');
-    $this->assertSession()->pageTextContains('Transition: Create');
-    $this->assertSession()->pageTextContains('Test entity with bundle: First');
+    $this->assertSession()->pageTextContains('Are you sure you want to create First?');
     $this->assertSession()->pageTextContains('This action cannot be undone.');
     $this->assertSession()->linkExists('Cancel');
-    $this->submitForm([], t('Confirm'));
+    $this->submitForm([], t('Create'));
 
-    $buttons = $this->xpath('//form[@id="state-machine-transition-form-entity-test-with-bundle-field-state-1"]/div/a');
+    $buttons = $this->xpath('//form[@id="state-machine-transition-form-entity-test-with-bundle-field-state-1"]/div/input');
     $this->assertCount(1, $buttons);
-    $this->assertEquals('Fulfill', $buttons[0]->getText());
+    $this->assertEquals('Fulfill', $buttons[0]->getValue());
 
     $transitions = [
       'create' => 403,
